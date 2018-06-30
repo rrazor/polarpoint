@@ -1,0 +1,4 @@
+*.swp
+dist/main.js
+package-lock.json
+node_modules/
