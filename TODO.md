@@ -11,8 +11,8 @@ As a user, I want to point to celestial north from a geoposition and the current
 
 #### Tasks
 X Determine appropriate unit testing framework for JS.
-- Unit test with known lat/lon.
-- Write celestial north from lat/lon calculation (assumes current epoch).
+X Unit test with known lat/lon.
+X Write celestial north from lat/lon calculation (assumes current epoch).
 - Write a UI for inputting lat/lon.
 - Write GPS integration to auto-populate lat/lon.
 
