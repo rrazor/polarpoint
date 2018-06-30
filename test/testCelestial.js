@@ -1,7 +1,7 @@
 import test from 'ava';
 import celestial from '../src/celestial.js';
 
-test('celestialNorthMinneapolis', t => {
+test('celestial.getNorthPoleObserverCoords', t => {
 	var testCoordinates = [
 			[44.9778, -93.2650, 'Minneapolis'],
 			[-23.5505, -46.6333, 'São Paulo']
