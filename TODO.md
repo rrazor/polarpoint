@@ -10,7 +10,7 @@ As a user, I want to point to celestial north from a geoposition and the current
 - Given a latitude and longtitude, return an accurate azimuth and elevation that points to celestial north.
 
 #### Tasks
-- Determine appropriate unit testing framework for JS.
+X Determine appropriate unit testing framework for JS.
 - Unit test with known lat/lon.
 - Write celestial north from lat/lon calculation (assumes current epoch).
 - Write a UI for inputting lat/lon.
