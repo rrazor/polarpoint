@@ -4,7 +4,7 @@ import julian from 'astronomia/lib/julian';
 import sidereal from 'astronomia/lib/sidereal';
 import * as util from './util';
 
-export default function getNorthPoleObserverCoords (lat, lon) {
+export function getNorthPoleObserverCoords (lat, lon) {
   return {
     azimuth: 0,
     elevation: lat

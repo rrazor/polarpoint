@@ -22,3 +22,7 @@ export function normalizeAzimuth (azimuth) {
 
   return normalAzimuth;
 }
+
+export function roundAzimuth (azimuth) {
+  return Math.floor(azimuth);
+}
