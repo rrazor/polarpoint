@@ -7,14 +7,15 @@
 As a user, I want to point to celestial north from a geoposition and the current time and date.
 
 #### Acceptance Criteria
-- Given a latitude and longtitude, return an accurate azimuth and elevation that points to celestial north.
+X Given a latitude and longtitude, return an accurate azimuth and elevation that points to celestial north.
 
 #### Tasks
 X Determine appropriate unit testing framework for JS.
 X Unit test with known lat/lon.
 X Write celestial north from lat/lon calculation (assumes current epoch).
-- Write a UI for inputting lat/lon.
-- Write GPS integration to auto-populate lat/lon.
+X Write a UI for inputting lat/lon.
+X Write GPS integration to auto-populate lat/lon.
+X Refactor celestial observer coordinates to support equatorial -> observer
 
 ### US1.2: Point to Celestial North Anytime, Anywhere
 

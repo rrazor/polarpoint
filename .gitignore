@@ -1,4 +1,4 @@
 *.swp
-dist/main.js
+dist/
 package-lock.json
 node_modules/

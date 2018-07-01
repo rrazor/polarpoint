@@ -4,21 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ava --verbose",
     "build": "webpack",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --hot",
+    "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Matt Gray <rrazor@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "ava": "1.0.0-beta.6",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.2.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.2.0",
+    "regenerator-runtime": "^0.12.0",
     "semistandard": "^12.0.1",
     "webpack": "^4.13.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
+    "astronomia": "^2.0.1",
     "dat.gui": "^0.7.2",
     "three": "^0.94.0"
   }
