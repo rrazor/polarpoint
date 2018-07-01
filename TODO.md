@@ -47,9 +47,19 @@ As a user, I want to point to orbital north from any geoposition and any time & 
 As a user, I want to see visual directions and real-time feedback when I follow the directions to point to celestial north so that the process is easier.
 
 #### Acceptance Criteria
-- A user should be able to clearly see what direction they should orient themselves.
-- A user should be able to clearly see how high above or below the horizon they should point.
-- As the user turns and changes their pointing elevation, the app should update the visual feedback.
+X A user should be able to clearly see what direction they should orient themselves.
+X A user should be able to clearly see how high above or below the horizon they should point.
+X As the user turns and changes their pointing elevation, the app should update the visual feedback.
+
+### US3.2: Use Compass if Available
+
+As a user, I want my compass-enabled device to find north for me.
+
+#### Acceptance Criteria
+- A user's compass-equipped device should allow the user to use the compass to find north.
+- Compass data should only be used when it is accurate.
+- The application should still work for devices without a compass.
+- Device-to-device inconsistencies on compass data should be handled and hidden from the user.
 
 ---
 
