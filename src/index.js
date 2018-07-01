@@ -1,43 +1,95 @@
+import * as dat from 'dat.gui';
+import * as celestial from './celestial';
 import * as THREE from 'three';
 import * as util from './util';
-import * as celestial from './celestial';
 import DeviceOrientationControls from './vendor/three/DeviceOrientationControls';
 
 var scene, camera, controls, renderer;
 var sphereDistance = 200;
-var compassHeading = 0;
-var readingCount = 10;
 var celestialNorth = {};
 var celestialNorthColor = 0x9DC06B;
 var orbitalNorthColor = 0x8CB3AA;
+var now = new Date();
+var variables = {
+  lat: 45.0,
+  lon: -99,
+  year: now.getFullYear(),
+  month: now.getMonth() + 1,
+  day: now.getDate(),
+  hour: now.getHours(),
+  minute: now.getMinutes(),
+  second: now.getSeconds(),
+  useCurrentTime: true
+};
 
-// window.addEventListener('deviceorientation', handleOrientation, false);
-document.getElementById('proceed').addEventListener('click', function () {
+window.onload = function () {
+  document.getElementById('proceed').addEventListener('click', function () {
+    initWithOrientation();
+  }, false);
+
+  updateLatLonFromGPS();
   initWithOrientation();
-}, false);
+};
 
 function initWithOrientation () {
   document.getElementById('splash').style.display = 'none';
   document.getElementById('statusBar').style.display = 'block';
+
   init();
   animate();
-}
 
-function handleOrientation (evt) {
-  console.log('event');
-  if (typeof evt.webkitCompassHeading !== 'undefined') {
-    if (evt.webkitCompassAccuracy >= 0 &&
-         evt.webkitCompassAccuracy < 30) {
-      if (readingCount === 0) {
-        compassHeading = evt.webkitCompassHeading;
-        window.removeEventListener('deviceorientation', handleOrientation, false);
-        console.log('initWithOrientation called...');
-        initWithOrientation();
-      } else {
-        readingCount--;
-      }
-    }
+  var gui = new dat.GUI();
+  var folder = gui.addFolder('Location');
+
+  folder.add(variables, 'lat', -90, 90)
+    .step(0.01)
+    .onChange(updateCoords)
+    .listen();
+  folder.add(variables, 'lon', -180, 180)
+    .step(0.1)
+    .onChange(updateCoords)
+    .listen();
+
+  if ('geolocation' in navigator) {
+    variables.lookupLatLonFromGPS = updateLatLonFromGPS;
+    folder.add(variables, 'lookupLatLonFromGPS')
+      .name('Get from GPS');
   }
+
+  folder.open();
+
+  var nowFolder = gui.addFolder('Time');
+
+  nowFolder.add(variables, 'year', 1000, 3000)
+    .step(1)
+    .onChange(updateCoords)
+    .listen();
+  nowFolder.add(variables, 'month', 1, 12)
+    .step(1)
+    .onChange(updateCoords)
+    .listen();
+  nowFolder.add(variables, 'day', 1, 31)
+    .step(1)
+    .onChange(updateCoords)
+    .listen();
+  nowFolder.add(variables, 'hour', 0, 23)
+    .step(1)
+    .onChange(updateCoords)
+    .listen();
+  nowFolder.add(variables, 'minute', 0, 59)
+    .step(1)
+    .onChange(updateCoords)
+    .listen();
+  nowFolder.add(variables, 'second', 0, 59)
+    .step(1)
+    .onChange(updateCoords)
+    .listen();
+  nowFolder.add(variables, 'useCurrentTime')
+    .name('Current Time')
+    .onChange(updateCoords);
+  nowFolder.open();
+
+  gui.close();
 }
 
 function init () {
@@ -55,6 +107,7 @@ function init () {
   controls.alphaOffset = Math.PI;
 
   buildScene(scene);
+  updateCoords();
 
   window.addEventListener('resize', resize, false);
 }
@@ -68,14 +121,8 @@ function addCelestialNorth (scene) {
   var geometry = new THREE.BoxGeometry(10, 10, 10);
   var material = new THREE.MeshBasicMaterial({color: celestialNorthColor});
 
-  celestialNorth = celestial.getNorthPoleObserverCoords(45, -93);
-
-  geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0, 100));
-  geometry.applyMatrix(new THREE.Matrix4().makeRotationX(util.deg2rad(-1 * celestialNorth.elevation)));
-  geometry.applyMatrix(new THREE.Matrix4().makeRotationY(util.deg2rad(celestialNorth.azimuth)));
-
-  var cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+  celestialNorth.object = new THREE.Mesh(geometry, material);
+  scene.add(celestialNorth.object);
 }
 
 function addEquator (scene) {
@@ -103,12 +150,19 @@ function addEquator (scene) {
 
 function animate () {
   window.requestAnimationFrame(animate);
-
   controls.update();
-
   updateStatusBar();
-
   renderer.render(scene, camera);
+
+  if (variables.useCurrentTime === true) {
+    now = new Date();
+    variables.year = now.getFullYear();
+    variables.month = now.getMonth() + 1;
+    variables.day = now.getDate();
+    variables.hour = now.getHours();
+    variables.minute = now.getMinutes();
+    variables.second = now.getSeconds();
+  }
 }
 
 function resize () {
@@ -116,6 +170,30 @@ function resize () {
   camera.updateProjectionMatrix();
 
   renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function updateCoords () {
+  var coords = celestial.getNorthPoleObserverCoords(variables.lat, variables.lon);
+
+  celestialNorth.azimuth = coords.azimuth;
+  celestialNorth.elevation = coords.elevation;
+
+  celestialNorth.object.position.x = 0;
+  celestialNorth.object.position.y = 0;
+  celestialNorth.object.position.z = 0;
+  celestialNorth.object.rotation.x = 0;
+  celestialNorth.object.rotation.y = 0;
+  celestialNorth.object.rotation.z = 0;
+  celestialNorth.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), util.deg2rad(-1 * celestialNorth.elevation));
+  celestialNorth.object.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), util.deg2rad(celestialNorth.azimuth));
+  celestialNorth.object.translateZ(100);
+}
+
+function updateLatLonFromGPS () {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    variables.lat = position.coords.latitude;
+    variables.lon = position.coords.longitude;
+  });
 }
 
 function updateStatusBar () {
