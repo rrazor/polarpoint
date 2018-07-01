@@ -27,8 +27,8 @@ window.onload = function () {
     initWithOrientation();
   }, false);
 
-  updateLatLonFromGPS();
-  initWithOrientation();
+  // Uncomment for development.
+  // initWithOrientation();
 };
 
 function initWithOrientation () {
