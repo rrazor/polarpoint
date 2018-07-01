@@ -39,8 +39,8 @@ var addEquator = function () {
 addEquator();
 
 // Positional sensors
-var alpha, beta, gamma;
-var lookX, lookY, lookZ;
+var alpha = 0, beta = 0, gamma = 0;
+var lookX = 0, lookY = 0, lookZ = 20;
 
 var animate = function () {
   window.requestAnimationFrame(animate);

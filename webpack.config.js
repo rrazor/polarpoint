@@ -13,19 +13,5 @@ module.exports = {
     filename: '[name].js',
     path: __dirname + '/dist'
   },
-  mode: 'development',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules\/(?!astronomia)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
-        }
-      }
-    ]
-  }
+  mode: 'development'
 };
