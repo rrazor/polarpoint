@@ -189,26 +189,28 @@ function updateSceneObjects () {
   celestialNorth.object.rotation.set(0, 0, 0);
   // Right-hand rule: positive rotation would drop the marker below horizon;
   // invert rotation direction so positive altitude rises _above_ horizon.
-  celestialNorth.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), util.deg2rad(-1 * celestialNorth.altitude));
+  celestialNorth.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), -1 * util.deg2rad(celestialNorth.coords.altitude));
   // Right-hand rule would cause + angle to move west;
   // azimuth increases east, so *= -1
-  celestialNorth.object.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), -1 * util.deg2rad(celestialNorth.azimuth));
+  celestialNorth.object.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), -1 * util.deg2rad(celestialNorth.coords.azimuth));
   celestialNorth.object.translateZ(100);
 
   orbitalNorth.coords = orbital.northPole(variables.lat, variables.lon, date);
 
   orbitalNorth.object.position.multiplyScalar(0);
   orbitalNorth.object.rotation.set(0, 0, 0);
-  // Right-hand rule: positive rotation would drop the marker below horizon;
-  // invert rotation direction so positive altitude rises _above_ horizon.
-  orbitalNorth.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), util.deg2rad(-1 * orbitalNorth.coords.altitude));
+  // -1 * due to right-hand rule
+  orbitalNorth.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), -1 * util.deg2rad(orbitalNorth.coords.altitude));
+  // -1 * due to right-hand rule
   orbitalNorth.object.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), -1 * util.deg2rad(orbitalNorth.coords.azimuth));
   orbitalNorth.object.translateZ(100);
 
   ecliptic.object.rotation.set(0, 0, 0);
-  ecliptic.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), util.deg2rad(orbitalNorth.coords.altitude) * -1);
+  // -1 * due to right-hand rule
+  ecliptic.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), -1 * util.deg2rad(orbitalNorth.coords.altitude));
   // And rotate away from the orbital north pole 90º
   ecliptic.object.rotateOnWorldAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2.0);
+  // -1 * due to right-hand rule
   ecliptic.object.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), -1 * util.deg2rad(orbitalNorth.coords.azimuth));
 }
 
