@@ -1,6 +1,6 @@
 module.exports = {
   devServer: {
-    contentBase: './dist',
+    contentBase: './docs',
     disableHostCheck: true,
     host: '0.0.0.0',
     https: true
@@ -10,7 +10,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/dist'
+    path: __dirname + '/docs'
   },
   mode: 'development'
 };
