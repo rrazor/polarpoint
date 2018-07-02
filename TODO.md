@@ -22,7 +22,7 @@ X Refactor celestial observer coordinates to support equatorial -> observer
 As a user, I want to point to celestial north from any arbitrary geoposition and any time & date within +-X years from 2000.
 
 #### Acceptance Criteria
-- Given a latitude, longitude, and a datetime within the acceptable range, return an accurate azimuth and elevation that points to celestial north.
+X Given a latitude, longitude, and a datetime within the acceptable range, return an accurate azimuth and elevation that points to celestial north.
 
 ## F2: Ecliptic / Orbital North Pole
 

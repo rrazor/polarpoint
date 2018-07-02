@@ -33,27 +33,12 @@
       .dg input {
         font-size: 24px !important;
       }
-      #statusBar {
-        position: absolute;
-        top: 0;
-        line-height: 100px;
-        height: 100px;
-        width: 100%;
-        left: 0;
-        display: none;
-        text-align: left;
-        background-color: #111;
-        color: #aaa;
-        font-size: 50px;
-        font-weight: bold;
-        z-index: 100;
-      }
       #splash {
         font-size: 48px;
         z-index: 200;
       }
       #splash .wrapper {
-        padding: 25% 10%;
+        padding: 5% 10%;
       }
       a, a:visited, a:active, a:hover, button {
         text-align: center;
@@ -69,6 +54,21 @@
       #buttonNav {
         text-align: center;
       }
+      #statusBar {
+        position: absolute;
+        top: 0;
+        line-height: 100px;
+        height: 100px;
+        width: 100%;
+        left: 0;
+        display: none;
+        text-align: left;
+        background-color: #111;
+        color: #aaa;
+        font-size: 50px;
+        font-weight: bold;
+        z-index: 100;
+      }
       #statusBar .item {
         display: inline-block;
         padding: 0 10px;
@@ -77,6 +77,14 @@
         font-size: 36px;
         line-height: 48px;
       }
+      #statusBar .item.cnp {
+        border-color: #9DC06B;
+        color: #9DC06B;
+      }
+      #statusBar .item.onp {
+        border-color: #11EE11;
+        color: #11EE11;
+      }
       #statusBar .item span {
         display: inline-block;
       }
@@ -84,8 +92,8 @@
         display: block;
         text-align: center;
         text-transform: uppercase;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 18px;
       }
       #azimuth, #altitude {
         width: 2em; text-align: right;
@@ -97,10 +105,12 @@
   </head>
   <body>
     <div id="statusBar">
-      <div class="item"><span class="label">Azimuth</span><span id="azimuth"></span></div>
-      <div class="item"><span class="label">Altitude</span><span id="altitude"></span></div>
-      <div class="item"><span class="label">CNP Az</span><span id="cnpAzimuth"></span></div>
-      <div class="item"><span class="label">CNP Alt</span><span id="cnpAltitude"></span></div>
+      <div class="item"><span class="label"><br>Azimuth</span><span id="azimuth"></span></div>
+      <div class="item"><span class="label"><br>Altitude</span><span id="altitude"></span></div>
+      <div class="item cnp"><span class="label">Celestial&nbsp;NP<br>Azimuth</span><span id="cnpAzimuth"></span></div>
+      <div class="item cnp"><span class="label">Celestial&nbsp;NP<br>Altitude</span><span id="cnpAltitude"></span></div>
+      <div class="item onp"><span class="label">Orbital&nbsp;NP<br>Azimuth</span><span id="onpAzimuth"></span></div>
+      <div class="item onp"><span class="label">Orbital&nbsp;NP<br>Altitude</span><span id="onpAltitude"></span></div>
     </div>
     <div id="splash">
       <div class="wrapper">
