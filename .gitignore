@@ -1,5 +1,4 @@
 *.swp
-docs/*.js
 package-lock.json
 node_modules/
 coverage/
