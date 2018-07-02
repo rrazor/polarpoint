@@ -6,8 +6,7 @@ module.exports = {
     https: true
   },
   entry: {
-    index: './src/index.js',
-    'celestial-ui': './src/celestial-ui.js'
+    index: './src/index.js'
   },
   output: {
     filename: '[name].js',
